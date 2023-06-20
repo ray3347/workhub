@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-function RatesList() {
+function DurationCheckout() {
   const [index, setIndex] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -23,14 +23,13 @@ function RatesList() {
           label="Duration"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Top-Rated</MenuItem>
-          <MenuItem value={20}>Nearest</MenuItem>
-          <MenuItem value={30}>Popularity</MenuItem>
-          <MenuItem value={40}>Trending</MenuItem>
+          <MenuItem value={10}>Long-Term</MenuItem>
+          <MenuItem value={20}>Short-Term</MenuItem>
+          <MenuItem value={30}>One-Time</MenuItem>
         </Select>
       </FormControl>
     </Box>
   );
 }
 
-export default RatesList;
+export default DurationCheckout;

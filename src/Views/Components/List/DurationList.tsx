@@ -1,39 +1,77 @@
-import { useState } from 'react'
-import { Listbox } from '@headlessui/react'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import * as React from 'react';
+import { Theme, useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-const duration = [
-  { id: 2, name: 'One-Time', unavailable: false },
-  { id: 3, name: 'Short-Term', unavailable: false },
-  { id: 4, name: 'Long-Term', unavailable: false },
-]
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 200,
+    },
+  },
+};
+
+const durations = [
+  'Long-term',
+  'Short-term',
+  'One-time'
+];
+
+function getStyles(name: string, durationName: string[], theme: Theme) {
+  return {
+    fontWeight:
+      durationName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 function DurationList() {
-  const [selectedduration, setselectedduration] = useState(duration[0])
+  const theme = useTheme();
+  const [durationName, setdurationName] = React.useState<string[]>([]);
+
+  const handleChange = (event: SelectChangeEvent<typeof durationName>) => {
+    const {
+      target: { value },
+    } = event;
+    setdurationName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
   return (
-    <Listbox value={selectedduration} onChange={setselectedduration}>
-        <div className='px-5 py-2 border-2 border-blue-800 w-44 text-center relative hover:bg-gray-200'>
-            <Listbox.Button className={'w-9/12'}>{selectedduration.name}</Listbox.Button>
-            <ArrowDropDownIcon className='absolute right-2'/>
-            <Listbox.Options>
-                {duration.map((duration) => (
-                <Listbox.Option
-                    className={'px-5 py-2 text-center hover:cursor-pointer  hover:bg-blue-600 hover:rounded-lg hover:text-white'}
-                    key={duration.id}
-                    value={duration}
-                    disabled={duration.unavailable}
-                    placeholder='Choose duration'
-                >
-                    {duration.name}
-                </Listbox.Option>
-                ))}
-            </Listbox.Options>
-        </div>
-      
-      
-    </Listbox>
-  )
+    <div>
+      <FormControl sx={{ width: 200 }}>
+        <InputLabel id="demo-multiple-name-label">Duration</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          multiple
+          value={durationName}
+          onChange={handleChange}
+          input={<OutlinedInput label="Duration" />}
+          MenuProps={MenuProps}
+        >
+          {durations.map((name) => (
+            <MenuItem
+              key={name}
+              value={name}
+              style={getStyles(name, durationName, theme)}
+            >
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
+  );
 }
 
 export default DurationList;

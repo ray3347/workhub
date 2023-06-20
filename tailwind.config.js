@@ -6,7 +6,8 @@ module.exports = {
       backgroundImage:{
         'cleanerHome': "url('/src/assets/images/cleaner.jfif')",
         'shopkeeperHome': "url('/src/assets/images/shopkeeper.jfif')",
-        'cleaningJob': "url('/src/assets/images/cleaningjob.jfif')"
+        'cleaningJob': "url('/src/assets/images/cleaningjob.jfif')",
+        'cleaningMany': "url('/src/assets/images/cleaningmany.jpg')"
       }
     },
   },

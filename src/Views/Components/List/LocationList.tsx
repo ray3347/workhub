@@ -1,40 +1,80 @@
-import { useState } from 'react'
-import { Listbox } from '@headlessui/react'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import * as React from 'react';
+import { Theme, useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-const location = [
-  { id: 2, name: 'DKI Jakarta', unavailable: false },
-  { id: 3, name: 'Tangerang', unavailable: false },
-  { id: 4, name: 'Surabaya', unavailable: false },
-  { id: 5, name: 'Semarang', unavailable: false },
-]
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 200,
+    },
+  },
+};
+
+const locations = [
+  'DKI Jakarta',
+  'Surabaya',
+  'Tangerang',
+  'DI Yogyakarta',
+  'Semarang',
+  'Medan'
+];
+
+function getStyles(name: string, locationName: string[], theme: Theme) {
+  return {
+    fontWeight:
+      locationName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 function LocationList() {
-  const [selectedLocation, setselectedLocation] = useState(location[0])
+  const theme = useTheme();
+  const [locationName, setlocationName] = React.useState<string[]>([]);
+
+  const handleChange = (event: SelectChangeEvent<typeof locationName>) => {
+    const {
+      target: { value },
+    } = event;
+    setlocationName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
   return (
-    <Listbox value={selectedLocation} onChange={setselectedLocation}>
-        <div className='px-5 py-2 border-2 border-blue-800 w-44 text-center relative hover:bg-gray-200'>
-            <Listbox.Button className={'w-9/12'}>{selectedLocation.name}</Listbox.Button>
-            <ArrowDropDownIcon className='absolute right-2'/>
-            <Listbox.Options>
-                {location.map((location) => (
-                <Listbox.Option
-                    className={'px-5 py-2 text-center hover:cursor-pointer hover:bg-blue-600 hover:rounded-lg hover:text-white'}
-                    key={location.id}
-                    value={location}
-                    disabled={location.unavailable}
-                    placeholder='Choose Location'
-                >
-                    {location.name}
-                </Listbox.Option>
-                ))}
-            </Listbox.Options>
-        </div>
-      
-      
-    </Listbox>
-  )
+    <div>
+      <FormControl sx={{ width: 200 }}>
+        <InputLabel id="demo-multiple-name-label">Location</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          multiple
+          value={locationName}
+          onChange={handleChange}
+          input={<OutlinedInput label="Location" />}
+          MenuProps={MenuProps}
+        >
+          {locations.map((name) => (
+            <MenuItem
+              key={name}
+              value={name}
+              style={getStyles(name, locationName, theme)}
+            >
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
+  );
 }
 
 export default LocationList;

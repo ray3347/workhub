@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-function RatesList() {
+function PronounsList() {
   const [index, setIndex] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -15,22 +15,21 @@ function RatesList() {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Duration</InputLabel>
+        <InputLabel id="demo-simple-select-label">Pronouns</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={index}
-          label="Duration"
+          label="Pronouns"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Top-Rated</MenuItem>
-          <MenuItem value={20}>Nearest</MenuItem>
-          <MenuItem value={30}>Popularity</MenuItem>
-          <MenuItem value={40}>Trending</MenuItem>
+          <MenuItem value={10}>Mrs.</MenuItem>
+          <MenuItem value={20}>Mr.</MenuItem>
+          <MenuItem value={30}>Other</MenuItem>
         </Select>
       </FormControl>
     </Box>
   );
 }
 
-export default RatesList;
+export default PronounsList;

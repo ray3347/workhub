@@ -12,19 +12,22 @@ import Login from './Views/Pages/LogIn/Login';
 import Register from './Views/Pages/Register/Register';
 import CleaningService from './Views/Pages/Jobs/CleaningService';
 import WorkerDetail from './Views/Pages/Jobs/WorkerDetail';
+import BookPage from './Views/Pages/Jobs/BookPage';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navbar/>}>
-          <Route index path='home' element={<Home />} />
+          <Route index element={<Home/>}/>
+          <Route  path='home' element={<Home />} />
           <Route path="jobs" element={<Jobs />} />
           <Route path="beAworker" element={<BeAWorker />} />          
           <Route path="register" element={<Register />} />          
           <Route path="login" element={<Login />} />
           <Route path="jobs/cleaningservice" element={<CleaningService/>}/>
           <Route path="jobs/cleaningservice/workerdetail" element={<WorkerDetail/>}/>
+          <Route path="jobs/cleaningservice/workerdetail/bookpage" element={<BookPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

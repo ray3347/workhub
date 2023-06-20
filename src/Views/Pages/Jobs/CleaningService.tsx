@@ -11,22 +11,21 @@ import { Pagination } from "@mui/material";
 const CleaningService = () =>{
     return(
         <div>
-            <div className="max-w-screen my-5 mx-16 m-auto space-y-5">
-                <div className="">
-                    <p className="font-bold text-2xl">Cleaning Service</p>
+            <div className="w-11/12 my-10 m-auto space-y-10">
+                <div className="space-y-2">
+                    <p className="font-bold text-4xl">Cleaning Service</p>
                     <p className="text-sm">Your place, squeaky clean, anytime.</p>
                 </div>
-                <div className="flex justify-left space-x-10">
-                    <div>
+                <div className="space-y-3">
+                    <div className="space-y-2">
                         <p className="font-bold text-lg">Filters</p>
-                        <div className="flex-col justify-left space-y-5">
+                        <div className="flex items-center justify-start space-x-5">
                             <LocationList/>
                             <BudgetList/>
                             <DurationList/>
-                        </div>
-                        
+                        </div>                        
                     </div>
-                    <div>
+                    <div className="max-w-xs space-y-2">
                         <p className="font-bold text-lg">Sort By</p>
                         <RatesList/>
                     </div>
@@ -50,11 +49,11 @@ const CleaningService = () =>{
                 </div>
             </div>
             <div className="relative mb-10 mx-auto max-w-screen h-auto px-16">
-                    <Pagination 
+                <Pagination 
                     className="relative mx-96 px-auto"
                     count={10} 
                     color="primary"/>
-                </div>
+            </div>
             <Footer/>
         </div>
     );
